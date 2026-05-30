@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Traffic Control System - YOLOv8 Ambulance Detection</title>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🚦 Smart Traffic Control System</h1>
+            <p>Real-time Ambulance Detection with YOLOv8</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Section: Image Upload and Detection -->
+            <div class="left-section">
+                <div class="upload-section">
+                    <h2>🎬 Upload Video</h2>
+                    
+                    <!-- File Input -->
+                    <div class="file-input-wrapper">
+                        <input 
+                            type="file" 
+                            id="mediaInput" 
+                            accept="video/*"
+                            class="file-input"
+                        >
+                        <label for="mediaInput" class="file-input-label">
+                            Choose Video or Drag & Drop
+                        </label>
+                    </div>
+
+                    <!-- Detect Button -->
+                    <button id="detectBtn" class="detect-btn">
+                        🔍 Detect Ambulance
+                    </button>
+
+                    <!-- Loading Spinner -->
+                    <div id="loadingSpinner" class="loading-spinner hidden">
+                        <div class="spinner"></div>
+                        <p>Processing video...</p>
+                    </div>
+
+                    <!-- Status Messages -->
+                    <div id="statusMessage" class="status-message hidden"></div>
+                </div>
+
+                        <!-- Image Display Section -->
+                <div class="image-section">
+                    <div class="image-container card">
+                        <h3>Uploaded Media</h3>
+                        <div id="uploadedImageContainer" class="image-display">
+                            <p class="placeholder">No media uploaded yet</p>
+                        </div>
+                    </div>
+
+                    <div class="image-container card">
+                        <h3>Processed Media (Detection Result)</h3>
+                        <div id="processedImageContainer" class="image-display">
+                            <video id="resultVideo" controls autoplay width="500" style="display:none"></video>
+                            <p class="placeholder">Detection result will appear here</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detection Results -->
+                <div class="results-section">
+                    <h3>📊 Detection Results</h3>
+                    <div class="results-box">
+                        <div class="result-item">
+                            <span class="result-label">Ambulance Detected:</span>
+                            <span id="ambulanceStatus" class="result-value">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Confidence Score:</span>
+                            <span id="confidenceScore" class="result-value">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Status Message:</span>
+                            <span id="detectionMessage" class="result-value message">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Section: Traffic Lights Control -->
+            <aside class="right-section">
+                <div class="traffic-light-container">
+                    <h2>🚦 Traffic Light Control</h2>
+                    <p class="traffic-info">Traffic Light Status</p>
+
+                    <!-- Traffic Light Box -->
+                    <div class="traffic-lights">
+                        <!-- Red Light -->
+                        <div class="traffic-light red-light" id="redLight">
+                            <div class="light"></div>
+                            <span class="light-label">RED</span>
+                        </div>
+
+                        <!-- Yellow Light -->
+                        <div class="traffic-light yellow-light" id="yellowLight">
+                            <div class="light"></div>
+                            <span class="light-label">YELLOW</span>
+                        </div>
+
+                        <!-- Green Light -->
+                        <div class="traffic-light green-light" id="greenLight">
+                            <div class="light"></div>
+                            <span class="light-label">GREEN</span>
+                        </div>
+
+                        <!-- Ambulance Light (4th Signal) -->
+                        <div class="traffic-light ambulance-light" id="ambulanceLight">
+                            <div class="light"><span class="ambulance-symbol">🚑</span></div>
+                            <span class="light-label">AMBULANCE</span>
+                        </div>
+                    </div>
+
+                    <!-- Control Info -->
+                    <div class="control-info">
+                        <div class="info-box">
+                            <h4>🔄 Normal Mode</h4>
+                            <p>Traffic lights cycle through:</p>
+                            <ul>
+                                <li>🔴 Red → Stop</li>
+                                <li>🟢 Green → Go</li>
+                                <li>🟡 Yellow → Caution</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box emergency">
+                            <h4>🚑 Emergency Mode</h4>
+                            <p>When ambulance detected:</p>
+                            <ul>
+                                <li>All signals OFF</li>
+                                <li>🚑 Ambulance light ON</li>
+                                <li>Priority green for ambulance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-small">Smart Traffic Control System v1.0</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
